@@ -16,10 +16,10 @@ API REST de cadastro de usuários feita com **Node.js + Express** e conectada a 
 
 ## 🗄️ Banco de dados
 
-Crie o banco `devjobs` e a tabela:
+Crie o banco `devjobs` e rode o [`schema.sql`](schema.sql):
 
 ```sql
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id     SERIAL PRIMARY KEY,
     nome   VARCHAR(100) NOT NULL,
     email  VARCHAR(100) NOT NULL UNIQUE
@@ -33,11 +33,12 @@ As queries usam **parâmetros** (`$1`, `$2`) em vez de concatenar texto, o que p
 ```bash
 git clone https://github.com/Bruno-Gadelha25/api-simples.git
 cd api-simples
-npm install express pg
-node index.js
+npm install
+cp .env.example .env   # depois preencha com os dados do seu PostgreSQL
+npm start
 ```
 
-Ajuste usuário e senha do PostgreSQL em `index.js`. O servidor sobe em **http://localhost:3000**.
+As credenciais do banco ficam no `.env`, que está no `.gitignore` e **nunca vai pro repositório**. O servidor sobe em **http://localhost:3000**.
 
 ### Testando
 
@@ -49,7 +50,7 @@ curl -X DELETE http://localhost:3000/usuarios/1
 
 ## 🚀 Próximos passos
 
-- [ ] Mover credenciais do banco para variáveis de ambiente (`.env`)
+- [x] Mover credenciais do banco para variáveis de ambiente (`.env`)
 - [ ] Rota `PUT /usuarios/:id` para atualização
 - [ ] Validação de e-mail e tratamento de e-mail duplicado (`409 Conflict`)
 

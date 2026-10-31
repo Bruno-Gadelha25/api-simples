@@ -1,16 +1,17 @@
+require('dotenv').config()
 const express = require('express')
 const { Pool } = require('pg')
 
 const app = express()
 app.use(express.json())
 
-// Conexão com o banco
+// Conexão com o banco — credenciais vêm do arquivo .env (veja .env.example)
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'devjobs',
-  password: '123456',
-  port: 5432
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: Number(process.env.DB_PORT)
 })
 
 // GET — lista todos os usuários
